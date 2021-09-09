@@ -14,7 +14,7 @@ import bcrypt
 import unicodedata
 import smtplib
 from pymongo.message import query
-# from twilio.rest import Client
+#from twilio.rest import Client
 from bson import json_util
 # import boto3
 from werkzeug.utils import secure_filename
@@ -1091,7 +1091,7 @@ def phoneOtp(p_hone):
     account_sid = 'ACe975581ef18a344680b31468b79d4cd1'
     auth_token = 'dc8eb786d2a005db9d3a7a45095e34fa'
     
-    client = Client(account_sid, auth_token)
+    #client = Client(account_sid, auth_token)
     
     ''' Change the value of 'from' with the number 
     received from Twilio and the value of 'to'
