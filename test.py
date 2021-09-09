@@ -14,7 +14,7 @@ import bcrypt
 import unicodedata
 import smtplib
 from pymongo.message import query
-#from twilio.rest import Client
+# from twilio.rest import Client
 from bson import json_util
 # import boto3
 from werkzeug.utils import secure_filename
@@ -1091,7 +1091,7 @@ def phoneOtp(p_hone):
     account_sid = 'ACe975581ef18a344680b31468b79d4cd1'
     auth_token = 'dc8eb786d2a005db9d3a7a45095e34fa'
     
-    #client = Client(account_sid, auth_token)
+   # client = Client(account_sid, auth_token)
     
     ''' Change the value of 'from' with the number 
     received from Twilio and the value of 'to'
@@ -1960,47 +1960,6 @@ def notifyswipeup():
     output["videodetailss"] = abc
     return JSONEncoder().encode(output)
 
-
-
-
-##########################################  Postvideo api ######################################################################
-@app.route('/PostVideos', methods=['POST'])
-def postVideos():
-    video_url=request.values.get("video_url")
-    img_url = request.values.get("img_url")
-    caption =request.values.get("caption")
-    mention =request.values.get("mention")
-    hashtag=[]
-    hashtag=re.findall(r'#[\w\.-]+',caption,flags=re.IGNORECASE),
-    print(hashtag)
-    video_privacy=request.values.get("video_privacy")
-    allow_comment=request.values.get("allow_comment")
-    allow_duet=request.values.get("allow_duet")
-    save_to_device =request.values.get("save_to_device")
-    user_id =request.values.get("user_id")
-    print("xyz")
-    output = {}   
-
-    queryObject = {
-                   'user_id':user_id,
-                   'video_url':video_url,
-                  'img_url':img_url,
-                  'caption':caption,
-                  'mention':mention,
-                  'hashtag':hashtag,
-                  'video_privacy':video_privacy,
-                  'allow_comment':allow_comment,
-                  'allow_duet':allow_duet,
-                  'save_to_device':save_to_device,
-                  'post_time':datetime.now() 
-                  }
-
-    query =postt.insert_one(queryObject)
-    output['response'] = 'request_accept'
-    return JSONEncoder().encode(output)
-
-   
-
 ####################################### Upload Storage ########################
 
 @app.route('/onVideocall', methods=['POST'])
@@ -2720,60 +2679,47 @@ def postVideos():
 
 
 
+################################## chat ####################################
 
-    ###################################### HOME Video Api #############################
-
-
-
-
-@app.route('/home/videos', methods=['POST'])
-def homeVideos():
-    user_id = request.values.get("user_id")
-    print(user_id)
-    user_id1 = ObjectId(user_id)
-    query = follower_table.aggregate([
-            {"$match": {"following_id": user_id1}},
-            { "$lookup": {
-                'from': 'videos',
-                'localField': 'follower_id',
-                'foreignField': "user_id",
-                'as': "videoinfo"
-            } },
-            { "$unwind": "$videoinfo" },
-            { "$project": {
-                "following_id":1,
-                "follower_id":1,
-                "videoinfo.user_id":1,
-                "videoinfo.created_at":1,
-                "videoinfo.caption":1,
-                "videoinfo._id": 1,
-                "videoinfo.username": 1,
-                "videoinfo.img_url":1
-            } }
-        ])
-    abc = []
+@app.route('/chatdb', methods=['POST'])
+def chat():
+    senderid = request.values.get("senderid")
+    receiverid = request.values.get("receiverid")
+    roomid = senderid+receiverid
+    x = datetime.now()
+    querry = chat_db.find_one({'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid})
+    if querry is None:
+        query2 = {'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid, 'timestamp': str(x)}
+        query = chat_db.insert_one(query2)
+        print("added")
+    else:
+        print(querry)
+        updateObject = {'timestamp': str(x)} 
+        query1 = {'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid}
+        updatee = chat_db.update_one(query1, {'$set': updateObject})
+        print("updated")
     output = {}
-    for x in query:
-        abc.append(x)
-        print(x)
-    print(abc)
-    output['videos'] = abc
+    output["response"] = "Successfull"
     return JSONEncoder().encode(output)
 
-#################### Follower / following count ########################
+    # return
 
 
 
-@app.route('/follower&followingcount', methods=['POST'])
-def followerfollowingcount():
-    user_id = request.values.get("user_id")
-    user_id1 = ObjectId(user_id)
-    following_count = follower_table.find({'following_id':user_id1}).count()
-    follower_count =  follower_table.find({'follower_id':user_id1}).count()
-    # print(bkmk)
-    output={}
-    output["follower_count"] = follower_count
-    output["following_count"] = following_count
+@app.route('/chatsActivity', methods=['POST'])
+def chatsActivity():
+    senderid = request.values.get("senderid")
+    print(senderid)
+    querry = chat_db.aggregate([
+        {'$match' :{"senderid":senderid}},
+        {'$sort':{"timestamp": -1}}
+        ])
+    abc=[]
+    for x in querry:
+        print(x)
+        abc.append(x)
+    output = {}
+    output["chatuserss"] = abc
     return JSONEncoder().encode(output)
 
 
@@ -2781,57 +2727,3 @@ def followerfollowingcount():
 if __name__ == '__main__':
     app.debug = True
     app.run()
-
-
-
-
-################################## chat ####################################
-
-
-
-# @app.route('/chatdb', methods=['POST'])
-# def chat():
-#     senderid = request.values.get("senderid")
-#     receiverid = request.values.get("receiverid")
-#     roomid = senderid+receiverid
-#     x = datetime.now()
-#     querry = chat_db.find_one({'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid})
-#     if querry is None:
-#         query2 = {'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid, 'timestamp': str(x)}
-#         query = chat_db.insert_one(query2)
-#         print("added")
-#     else:
-#         print(querry)
-#         updateObject = {'timestamp': str(x)} 
-#         query1 = {'senderid': senderid, 'receiverid': receiverid, 'roomid':roomid}
-#         updatee = chat_db.update_one(query1, {'$set': updateObject})
-#         print("updated")
-#     output = {}
-#     output["response"] = "Successfull"
-#     return JSONEncoder().encode(output)
-
-#     # return
-
-
-
-# @app.route('/chatsActivity', methods=['POST'])
-# def chatsActivity():
-#     senderid = request.values.get("senderid")
-#     print(senderid)
-#     querry = chat_db.aggregate([
-#         {'$match' :{"senderid":senderid}},
-#         {'$sort':{"timestamp": -1}}
-#         ])
-#     abc=[]
-#     for x in querry:
-#         print(x)
-#         abc.append(x)
-#     output = {}
-#     output["chatuserss"] = abc
-#     return JSONEncoder().encode(output)
-
-
-
-# if __name__ == '__main__':
-#     app.debug = True
-#     app.run()
