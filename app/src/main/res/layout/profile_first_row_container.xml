@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:id="@+id/cardxyz"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/videoimageView"
+        android:layout_width="120dp"
+        android:layout_height="227dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        app:shapeAppearanceOverlay="@style/ro"
+        app:layout_constraintVertical_bias="0.002"
+        android:src="@drawable/image1" />
+
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/videoimageView"
+        app:layout_constraintEnd_toEndOf="@+id/videoimageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/videoimageView"
+        app:layout_constraintTop_toTopOf="@+id/videoimageView"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/video_icon_slide" />
+
+    <TextView
+        android:id="@+id/videoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="TextView"
+        android:textSize="13dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/videoimageView"
+        app:layout_constraintEnd_toEndOf="@+id/videoimageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.929" />
+</androidx.constraintlayout.widget.ConstraintLayout>

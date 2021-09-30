@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.amplifyframework:aws-auth-cognito:1.18.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/44a4996dbe03877f1ead8d9765f5acc6/jetified-aws-auth-cognito-1.18.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f2fbcc582814cc4f54e7a6643e65f1e/jetified-aws-auth-cognito-1.18.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbe55d4b7af474097d1c23dade8d377/jetified-aws-auth-cognito-1.18.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbe55d4b7af474097d1c23dade8d377/jetified-aws-auth-cognito-1.18.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbe55d4b7af474097d1c23dade8d377/jetified-aws-auth-cognito-1.18.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amplifyframework/aws-auth-cognito/1.18.0/84538e42a3553c3132b886395d3d278ce9567a62/aws-auth-cognito-1.18.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

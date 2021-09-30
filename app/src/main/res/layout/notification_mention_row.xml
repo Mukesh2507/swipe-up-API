@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp">
+
+    <FrameLayout
+        android:id="@+id/mentionCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_marginLeft="16dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/person"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/usersnamee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:text="Savage"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/view_gray"
+                        android:textSize="14dp"
+                        android:text="mention you in their videos"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/view_gray"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="14dp"
+                        android:text="."/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:textColor="@color/view_gray"
+                        android:text="20m"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/videoscreen"-->
+<!--            android:layout_width="56dp"-->
+<!--            android:layout_height="56dp"-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            android:layout_gravity="top|right"-->
+<!--            android:src="@drawable/cover_small"/>-->
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/videoscreen"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="top|right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/ro"
+            app:layout_constraintVertical_bias="0.002"
+            android:src="@drawable/image1" />
+
+
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

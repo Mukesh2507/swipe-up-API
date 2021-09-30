@@ -1,0 +1,227 @@
+type Todo {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Post1 {
+  id: ID!
+  title: String!
+  status: PostStatus!
+  rating: Int
+  content: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTodoConnection {
+  items: [Todo]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelTodoFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  description: ModelStringInput
+  and: [ModelTodoFilterInput]
+  or: [ModelTodoFilterInput]
+  not: ModelTodoFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getTodo(id: ID!): Todo
+  listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection
+  getPost1(id: ID!): Post1
+  listPost1s(filter: ModelPost1FilterInput, limit: Int, nextToken: String): ModelPost1Connection
+}
+
+input CreateTodoInput {
+  id: ID
+  name: String!
+  description: String
+}
+
+input UpdateTodoInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+input DeleteTodoInput {
+  id: ID!
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!, condition: ModelTodoConditionInput): Todo
+  updateTodo(input: UpdateTodoInput!, condition: ModelTodoConditionInput): Todo
+  deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo
+  createPost1(input: CreatePost1Input!, condition: ModelPost1ConditionInput): Post1
+  updatePost1(input: UpdatePost1Input!, condition: ModelPost1ConditionInput): Post1
+  deletePost1(input: DeletePost1Input!, condition: ModelPost1ConditionInput): Post1
+}
+
+input ModelTodoConditionInput {
+  name: ModelStringInput
+  description: ModelStringInput
+  and: [ModelTodoConditionInput]
+  or: [ModelTodoConditionInput]
+  not: ModelTodoConditionInput
+}
+
+type Subscription {
+  onCreateTodo: Todo @aws_subscribe(mutations: ["createTodo"])
+  onUpdateTodo: Todo @aws_subscribe(mutations: ["updateTodo"])
+  onDeleteTodo: Todo @aws_subscribe(mutations: ["deleteTodo"])
+  onCreatePost1: Post1 @aws_subscribe(mutations: ["createPost1"])
+  onUpdatePost1: Post1 @aws_subscribe(mutations: ["updatePost1"])
+  onDeletePost1: Post1 @aws_subscribe(mutations: ["deletePost1"])
+}
+
+type ModelPost1Connection {
+  items: [Post1]
+  nextToken: String
+}
+
+input ModelPostStatusInput {
+  eq: PostStatus
+  ne: PostStatus
+}
+
+input ModelPost1FilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  status: ModelPostStatusInput
+  rating: ModelIntInput
+  content: ModelStringInput
+  and: [ModelPost1FilterInput]
+  or: [ModelPost1FilterInput]
+  not: ModelPost1FilterInput
+}
+
+input CreatePost1Input {
+  id: ID
+  title: String!
+  status: PostStatus!
+  rating: Int
+  content: String
+}
+
+input UpdatePost1Input {
+  id: ID!
+  title: String
+  status: PostStatus
+  rating: Int
+  content: String
+}
+
+input DeletePost1Input {
+  id: ID!
+}
+
+input ModelPost1ConditionInput {
+  title: ModelStringInput
+  status: ModelPostStatusInput
+  rating: ModelIntInput
+  content: ModelStringInput
+  and: [ModelPost1ConditionInput]
+  or: [ModelPost1ConditionInput]
+  not: ModelPost1ConditionInput
+}
