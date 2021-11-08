@@ -23,7 +23,7 @@ from werkzeug.utils import secure_filename
 import os
 # import key_config as keys
 
-client = pymongo.MongoClient("mongodb+srv://test:test123@cluster0.ebfkx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://test:test123@cluster0.ebfkx.mongodb.net/swipeup?retryWrites=true&w=majority")
 db = client.swipeup
 
 import hashlib, uuid
