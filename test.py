@@ -2678,6 +2678,42 @@ def postVideos():
     return JSONEncoder.encode(output)
 
 
+######################### Home Video API ###################
+
+
+@app.route('/home/videos', methods=['POST'])
+def homeVideos():
+    user_id = request.values.get("user_id")
+    print(user_id)
+    user_id1 = ObjectId(user_id)
+    query = follower_table.aggregate([
+            {"$match": {"following_id": user_id1}},
+            { "$lookup": {
+                'from': 'videos',
+                'localField': 'follower_id',
+                'foreignField': "user_id",
+                'as': "videoinfo"
+            } },
+            { "$unwind": "$videoinfo" },
+            { "$project": {
+                "following_id":1,
+                "follower_id":1,
+                "videoinfo.user_id":1,
+                "videoinfo.created_at":1,
+                "videoinfo.caption":1,
+                "videoinfo._id": 1,
+                "videoinfo.username": 1,
+                "videoinfo.img_url":1
+            } }
+        ])
+    abc = []
+    output = {}
+    for x in query:
+        abc.append(x)
+        print(x)
+    print(abc)
+    output['videos'] = abc
+    return JSONEncoder().encode(output)
 
 ################################## chat ####################################
 
