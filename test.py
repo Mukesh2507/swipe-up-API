@@ -1028,7 +1028,7 @@ def emailOtp():
     s.starttls()
     
     # Authentication
-    s.login("testmailfear@gmail.com", "@kshay12")
+    s.login("testmailfear@gmail.com", "@Kshay7021")
     
     # message to be sent
     message = """Subject: SMTP e-mail test
